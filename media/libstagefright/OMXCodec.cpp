@@ -292,14 +292,16 @@ uint32_t OMXCodec::getComponentQuirks(
     if (list->codecHasQuirk(
                 index, "requires-global-flush")) {
         quirks |= kRequiresGlobalFlush;
-                index, "needs-flush-before-disable")) {
-      quirks |= kNeedsFlushBeforeDisable;
     }
     if (list->codecHasQuirk(
                 index, "requires-wma-pro-component")) {
         quirks |= kRequiresWMAProComponent;
     }
 #endif
+    if (list->codecHasQuirk(
+                index, "needs-flush-before-disable")) {
+        quirks |= kNeedsFlushBeforeDisable;
+    }
     if (list->codecHasQuirk(
                 index, "requires-flush-complete-emulation")) {
       quirks |= kRequiresFlushCompleteEmulation;
@@ -316,8 +318,6 @@ uint32_t OMXCodec::getComponentQuirks(
                 index, "avoid-memcopy-input-recording-frames")) {
       quirks |= kAvoidMemcopyInputRecordingFrames;
     }
-<<<<<<< HEAD
-=======
     if (list->codecHasQuirk(
                 index, "requies-flush-before-disable")) {
       quirks |= kNeedsFlushBeforeDisable;
@@ -326,8 +326,6 @@ uint32_t OMXCodec::getComponentQuirks(
                 index, "decoder-lies-about-nubmer-of-channels")) {
       quirks |= kDecoderLiesAboutNumberOfChannels;
     }
-
->>>>>>> 6fd8957... fix mp3 hw codec
     return quirks;
 }
 
