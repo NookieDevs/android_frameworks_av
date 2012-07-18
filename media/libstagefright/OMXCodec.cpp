@@ -316,6 +316,18 @@ uint32_t OMXCodec::getComponentQuirks(
                 index, "avoid-memcopy-input-recording-frames")) {
       quirks |= kAvoidMemcopyInputRecordingFrames;
     }
+<<<<<<< HEAD
+=======
+    if (list->codecHasQuirk(
+                index, "requies-flush-before-disable")) {
+      quirks |= kNeedsFlushBeforeDisable;
+    }
+    if (list->codecHasQuirk(
+                index, "decoder-lies-about-nubmer-of-channels")) {
+      quirks |= kDecoderLiesAboutNumberOfChannels;
+    }
+
+>>>>>>> 6fd8957... fix mp3 hw codec
     return quirks;
 }
 
