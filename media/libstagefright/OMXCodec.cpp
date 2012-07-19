@@ -285,19 +285,37 @@ uint32_t OMXCodec::getComponentQuirks(
         quirks |= kOutputBuffersAreUnreadable;
     }
     if (list->codecHasQuirk(
-                index, "requies-loaded-to-idle-after-allocation")) {
-      quirks |= kRequiresLoadedToIdleAfterAllocation;
+                index, "requires-loaded-to-idle-after-allocation")) {
+        quirks |= kRequiresLoadedToIdleAfterAllocation;
     }
 #ifdef QCOM_HARDWARE
     if (list->codecHasQuirk(
                 index, "requires-global-flush")) {
         quirks |= kRequiresGlobalFlush;
+                index, "needs-flush-before-disable")) {
+      quirks |= kNeedsFlushBeforeDisable;
     }
     if (list->codecHasQuirk(
                 index, "requires-wma-pro-component")) {
         quirks |= kRequiresWMAProComponent;
     }
 #endif
+    if (list->codecHasQuirk(
+                index, "requires-flush-complete-emulation")) {
+      quirks |= kRequiresFlushCompleteEmulation;
+    }
+    if (list->codecHasQuirk(
+                index, "supports-multiple-frames-per-input-buffer")) {
+      quirks |= kSupportsMultipleFramesPerInputBuffer;
+    }
+    if (list->codecHasQuirk(
+                index, "input-buffer-sizes-are-bogus")) {
+      quirks |= kInputBufferSizesAreBogus;
+    }
+    if (list->codecHasQuirk(
+                index, "avoid-memcopy-input-recording-frames")) {
+      quirks |= kAvoidMemcopyInputRecordingFrames;
+    }
     return quirks;
 }
 
