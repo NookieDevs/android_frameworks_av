@@ -1049,6 +1049,7 @@ status_t MPEG4Extractor::parseChunk(off64_t *offset, int depth) {
         case FOURCC('s', 'e', 'v', 'c'):
         case FOURCC('s', 'q', 'c', 'p'):
 #endif
+
         {
             uint8_t buffer[8 + 20];
             if (chunk_data_size < (ssize_t)sizeof(buffer)) {
