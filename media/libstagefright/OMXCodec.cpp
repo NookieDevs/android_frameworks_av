@@ -288,6 +288,14 @@ uint32_t OMXCodec::getComponentQuirks(
                 index, "requires-loaded-to-idle-after-allocation")) {
         quirks |= kRequiresLoadedToIdleAfterAllocation;
     }
+    if (list->codecHasQuirk(
+                index, "avoid-memcopy-input-recording-frames")) {
+      quirks |= kAvoidMemcopyInputRecordingFrames;
+    }
+    if (list->codecHasQuirk(
+                index, "input-buffer-sizes-are-bogus")) {
+      quirks |= kInputBufferSizesAreBogus;
+    }
 #ifdef QCOM_HARDWARE
     if (list->codecHasQuirk(
                 index, "requires-global-flush")) {
@@ -1004,7 +1012,6 @@ status_t OMXCodec::setVideoPortFormatType(
                 break;
             }
         }
-
 
         if (format.eCompressionFormat == compressionFormat
                 && format.eColorFormat == colorFormat) {
@@ -3917,6 +3924,13 @@ bool OMXCodec::drainInputBuffer(BufferInfo *info) {
     if (err != OK) {
         setState(ERROR);
         return false;
+    }
+
+    // This component does not ever signal the EOS flag on output buffers,
+    // Thanks for nothing.
+    if (mSignalledEOS && !strcmp(mComponentName, "OMX.TI.Video.encoder")) {
+        mNoMoreOutputData = true;
+        mBufferFilled.signal();
     }
 
     info->mStatus = OWNED_BY_COMPONENT;
